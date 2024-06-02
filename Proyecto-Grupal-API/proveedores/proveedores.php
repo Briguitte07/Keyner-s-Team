@@ -57,7 +57,7 @@
         
         global $conn;
 
-            $query = "SELECT `*` FROM `Proveedores_KeynersTeam`";
+            $query = "SELECT * FROM `Proveedores_KeynersTeam`";
             $stm = $conn->prepare($query);
             $stm->execute();
     
@@ -72,7 +72,7 @@
     function obtenerProveedor($idProveedor){
         global $conn;
 
-            $query = "SELECT `*` FROM `Proveedores_KeynersTeam` where  `idProveedor`=?";
+            $query = "SELECT * FROM `Proveedores_KeynersTeam` where  `idProveedor`=?";
             $stm = $conn->prepare($query);            
             $stm->bindParam(1, $idProveedor);
             $stm->execute();
@@ -90,10 +90,10 @@
         global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
-        $query = "INSERT INTO `Proveedores_KeynersTeam` ( `nombreProveedor`, `dirección`) values ( :nombreProveedor, :estado)";
+        $query = "INSERT INTO `Proveedores_KeynersTeam` ( `nombreProveedor`, `direccion`) values ( :nombreProveedor, :direccion)";
         $stm = $conn->prepare($query);            
         $stm->bindParam(":nombreProveedor", $data->nombreProveedor);
-        $stm->bindParam(":dirección", $data->dirección);
+        $stm->bindParam(":direccion", $data->direccion);
 
    
         if($stm->execute()){
@@ -112,12 +112,12 @@
         global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
-        $query = "UPDATE `Proveedores_KeynersTeam` SET `nombreProveedor`= :nombreProveedor, `dirección`=:dirección where `idProveedor`=:idProveedor";
+        $query = "UPDATE `Proveedores_KeynersTeam` SET `nombreProveedor`= :nombreProveedor, `direccion`=:direccion where `idProveedor`=:idProveedor";
           
         $stm = $conn->prepare($query);            
         $stm->bindParam(":idProveedor", $data->idProveedor);
         $stm->bindParam(":nombreProveedor", $data->nombreProveedor);
-        $stm->bindParam(":dirección", $data->dirección);
+        $stm->bindParam(":direccion", $data->direccion);
 
    
         if($stm->execute()){

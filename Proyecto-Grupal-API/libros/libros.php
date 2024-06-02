@@ -57,7 +57,7 @@
         
         global $conn;
 
-            $query = "SELECT `*` FROM `Libros_KeynersTeam`";
+            $query = "SELECT * FROM `Libros_KeynersTeam`";
             $stm = $conn->prepare($query);
             $stm->execute();
     
@@ -72,7 +72,7 @@
     function obtenerLibro($idLibro){
         global $conn;
 
-            $query = "SELECT `*` FROM `Libros_KeynersTeam` where  `idLibro`=?";
+            $query = "SELECT * FROM `Libros_KeynersTeam` where  `idLibro`=?";
             $stm = $conn->prepare($query);            
             $stm->bindParam(1, $idLibro);
             $stm->execute();
@@ -90,13 +90,13 @@
         global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
-        $query = "INSERT INTO `Libros_KeynersTeam` ( `título`, `autor`, `editorial`,`descripción`, `precio`, `estado` ) 
-        values ( :título, :autor, :editorial, :descripción, :precio, :estado)";
+        $query = "INSERT INTO `Libros_KeynersTeam` ( `titulo`, `autor`, `editorial`,`descripcion`, `precio`, `estado` ) 
+        values ( :titulo, :autor, :editorial, :descripcion, :precio, :estado)";
         $stm = $conn->prepare($query);                    
-        $stm->bindParam(":título", $data->título);
+        $stm->bindParam(":titulo", $data->titulo);
         $stm->bindParam(":autor", $data->autor);
         $stm->bindParam(":editorial", $data->editorial); 
-        $stm->bindParam(":descripción", $data->descripción);
+        $stm->bindParam(":descripcion", $data->descripcion);
         $stm->bindParam(":precio", $data->precio);
         $stm->bindParam(":estado", $data->nombre);
         
@@ -117,14 +117,14 @@
         global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
-        $query = "UPDATE `Libros_KeynersTeam` SET `título`= :título, `autor`=:autor, `editorial`= :editorial, `descripción`=:descripción, `precio`= :precio, `estado`=:estado, where `idLibro`=:idLibro";
+        $query = "UPDATE `Libros_KeynersTeam` SET `titulo`= :titulo, `autor`=:autor, `editorial`= :editorial, `descripcion`=:descripcion, `precio`= :precio, `estado`=:estado, where `idLibro`=:idLibro";
 
         $stm = $conn->prepare($query);
         $stm->bindParam(":idLibro", $data->idLibro);            
-        $stm->bindParam(":título", $data->título);
+        $stm->bindParam(":titulo", $data->titulo);
         $stm->bindParam(":autor", $data->autor);
         $stm->bindParam(":editorial", $data->editorial); 
-        $stm->bindParam(":descripción", $data->descripción);
+        $stm->bindParam(":descripcion", $data->descripcion);
         $stm->bindParam(":precio", $data->precio);
         $stm->bindParam(":estado", $data->nombre);
         if($stm->execute()){

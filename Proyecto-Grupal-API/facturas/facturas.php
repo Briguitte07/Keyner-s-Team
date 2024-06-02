@@ -38,6 +38,8 @@
                 else{
                     obtenerFacturas();
                 }
+
+                //isset($_GET["idFactura"]) ? obtenerFactura(intval($_GET["idUsuario"])) : obtenerFacturas();
             break;
                                             
         case 'OPTIONS':
@@ -57,7 +59,7 @@
         
         global $conn;
 
-            $query = "SELECT `*` FROM `Factura_KeynersTeam`";
+            $query = "SELECT * FROM `Factura_KeynersTeam`";
             $stm = $conn->prepare($query);
             $stm->execute();
     
@@ -70,7 +72,7 @@
     function obtenerFactura($idFactura){
         global $conn;
 
-            $query = "SELECT `*` FROM `Factura_KeynersTeam` where  `idFactura`=?";
+            $query = "SELECT * FROM `Factura_KeynersTeam` where  `idFactura`=?";
             $stm = $conn->prepare($query);            
             $stm->bindParam(1, $idFactura);
             $stm->execute();
@@ -112,7 +114,7 @@
         global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
-        $query = "UPDATE `Factura_KeynersTeam` SET `nombreUsuario`= :nombreUsuario, `fecha`=:fecha, `título`=:título, `cantidad`=:cantidad, `totalPagar`=:totalPagar where `idFactura`=:idFactura";
+        $query = "UPDATE `Factura_KeynersTeam` SET `nombreUsuario`= :nombreUsuario, `fecha`=:fecha, `titulo`=:titulo, `cantidad`=:cantidad, `totalPagar`=:totalPagar where `idFactura`=:idFactura";
           
         $stm = $conn->prepare($query);            
         $stm->bindParam(":idFactura", $data->idFactura);
