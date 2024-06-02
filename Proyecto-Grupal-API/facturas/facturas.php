@@ -90,8 +90,10 @@
         global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
-        $query = "INSERT INTO `Factura_KeynersTeam` ( `nombreUsuario`, `fecha`, `titulo`, `cantidad`, `totalPagar` ) values ( :nombreUsuario, :fecha, :titulo, :cantidad, :totalPagar)";
-        $stm = $conn->prepare($query);            
+        $query = "INSERT INTO `Factura_KeynersTeam` ( `idUsuario`, `idLibro`, `nombreUsuario`, `fecha`, `titulo`, `cantidad`, `totalPagar` ) values ( :idUsuario, :idLibro, :nombreUsuario, :fecha, :titulo, :cantidad, :totalPagar)";
+        $stm = $conn->prepare($query);
+        $stm->bindParam(":idUsuario", $data->idUsuario);
+        $stm->bindParam(":idLibro", $data->idLibro);            
         $stm->bindParam(":nombreUsuario", $data->nombreUsuario);
         $stm->bindParam(":fecha", $data->fecha);
         $stm->bindParam(":titulo", $data->titulo);
@@ -114,10 +116,12 @@
         global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
-        $query = "UPDATE `Factura_KeynersTeam` SET `nombreUsuario`= :nombreUsuario, `fecha`=:fecha, `titulo`=:titulo, `cantidad`=:cantidad, `totalPagar`=:totalPagar where `idFactura`=:idFactura";
+        $query = "UPDATE `Factura_KeynersTeam` SET `idUsuario`=:idUsuario, `idLibro`=:idLibro, `nombreUsuario`= :nombreUsuario, `fecha`=:fecha, `titulo`=:titulo, `cantidad`=:cantidad, `totalPagar`=:totalPagar where `idFactura`=:idFactura";
           
         $stm = $conn->prepare($query);            
         $stm->bindParam(":idFactura", $data->idFactura);
+        $stm->bindParam(":idUsuario", $data->idUsuario);
+        $stm->bindParam(":idLibro", $data->idLibro); 
         $stm->bindParam(":nombreUsuario", $data->nombreUsuario);
         $stm->bindParam(":titulo", $data->titulo);
         $stm->bindParam(":fecha", $data->fecha);

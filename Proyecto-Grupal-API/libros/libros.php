@@ -90,15 +90,16 @@
         global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
-        $query = "INSERT INTO `Libros_KeynersTeam` ( `titulo`, `autor`, `editorial`,`descripcion`, `precio`, `estado` ) 
-        values ( :titulo, :autor, :editorial, :descripcion, :precio, :estado)";
+        $query = "INSERT INTO `Libros_KeynersTeam` ( `titulo`, `autor`, `editorial`,`descripcion`, `precio`, `estado`, `idProveedor` ) 
+        values ( :titulo, :autor, :editorial, :descripcion, :precio, :estado, :idProveedor)";
         $stm = $conn->prepare($query);                    
         $stm->bindParam(":titulo", $data->titulo);
         $stm->bindParam(":autor", $data->autor);
         $stm->bindParam(":editorial", $data->editorial); 
         $stm->bindParam(":descripcion", $data->descripcion);
         $stm->bindParam(":precio", $data->precio);
-        $stm->bindParam(":estado", $data->nombre);
+        $stm->bindParam(":estado", $data->estado);
+        $stm->bindParam(":idProveedor", $data->idProveedor);
         
 
         if($stm->execute()){
@@ -117,7 +118,7 @@
         global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
-        $query = "UPDATE `Libros_KeynersTeam` SET `titulo`= :titulo, `autor`=:autor, `editorial`= :editorial, `descripcion`=:descripcion, `precio`= :precio, `estado`=:estado, where `idLibro`=:idLibro";
+        $query = "UPDATE `Libros_KeynersTeam` SET `titulo`= :titulo, `autor`=:autor, `editorial`= :editorial, `descripcion`=:descripcion, `precio`= :precio, `estado`=:estado, `idProveedor`=:idProveedor where `idLibro`=:idLibro";
 
         $stm = $conn->prepare($query);
         $stm->bindParam(":idLibro", $data->idLibro);            
@@ -127,6 +128,7 @@
         $stm->bindParam(":descripcion", $data->descripcion);
         $stm->bindParam(":precio", $data->precio);
         $stm->bindParam(":estado", $data->nombre);
+        $stm->bindParam(":idProveedor", $data->idProveedor);
         if($stm->execute()){
             
             echo json_encode(array("message" => "Datos actualizados correct", "code" => "success"));
