@@ -9,7 +9,20 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 include_once "../config/db.php";
 
 $database = new Database();
-$db = $database->getConn();
+$conn = $database->getConn();
+$database->checkConn();
+echo "<br>";
+$variableusuarios = $database->getUsuarios();
+
+if ($variableusuarios){
+    echo "<pre>";
+    print_r($variableusuarios);
+    echo "</pre>";
+}
+else{
+    echo "<pre>Sin registros";
+    echo "</pre>";
+}
 
 $request_method = $_SERVER["REQUEST_METHOD"];
 
@@ -44,6 +57,15 @@ switch ($request_method) {
         echo json_encode(array("mensaje"=> "Metodo invalido"));
         break; 
 
+}
+
+public function checkConn(){
+    if($this->conn){
+        echo "conectado";
+    }
+    else{
+        echo 'Fuera de servicio';
+    }
 }
 
 function obtenerUsuarios(){
