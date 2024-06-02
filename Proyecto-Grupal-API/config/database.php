@@ -15,7 +15,7 @@
 
             try {
 
-                $this->conectors = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->database, $this->usua, $this->pass);
+                $this->conectors = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
                 $this->conectors->exec("set names utf8");
                 //es para indicarle al sistema que los caracteres son de 8 bits
 
@@ -25,7 +25,16 @@
             }
 
             return $this->conectors;
-        }    
+        }  
+        
+        function checkConn(){
+            if($this->conectors){
+                echo "conectado";
+            }
+            else{
+                echo 'Fuera de servicio';
+            }
+        }
     }
 
 ?>
