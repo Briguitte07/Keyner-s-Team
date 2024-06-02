@@ -9,7 +9,7 @@
     include_once '../config/database.php';
 
     $database = new DatabasesConexion();
-    $db = $database->obtenerConn();
+    $conn = $database->obtenerConn();
 
 
     $request_method = $_SERVER["REQUEST_METHOD"];
@@ -55,10 +55,10 @@
 
     function obtenerLibros(){
         
-        global $db;
+        global $conn;
 
             $query = "SELECT `*` FROM `Libros_KeynersTeam`";
-            $stm = $db->prepare($query);
+            $stm = $conn->prepare($query);
             $stm->execute();
     
             $resultado = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -70,10 +70,10 @@
 //idLibro	título	autor	editorial	descripción	precio	estado	idProveedor	Libros_KeynersTeam
 
     function obtenerLibro($idLibro){
-        global $db;
+        global $conn;
 
             $query = "SELECT `*` FROM `Libros_KeynersTeam` where  `idLibro`=?";
-            $stm = $db->prepare($query);            
+            $stm = $conn->prepare($query);            
             $stm->bindParam(1, $idLibro);
             $stm->execute();
     
@@ -87,12 +87,12 @@
 //idLibro	título	autor	editorial	descripción	precio	estado	idProveedor	Libros_KeynersTeam
 
     function insertarLibro(){
-        global $db;
+        global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
         $query = "INSERT INTO `Libros_KeynersTeam` ( `título`, `autor`, `editorial`,`descripción`, `precio`, `estado` ) 
         values ( :título, :autor, :editorial, :descripción, :precio, :estado)";
-        $stm = $db->prepare($query);                    
+        $stm = $conn->prepare($query);                    
         $stm->bindParam(":título", $data->título);
         $stm->bindParam(":autor", $data->autor);
         $stm->bindParam(":editorial", $data->editorial); 
@@ -114,12 +114,12 @@
 //idLibro	título	autor	editorial	descripción	precio	estado	idProveedor	Libros_KeynersTeam
 
     function actualizarLibro(){
-        global $db;
+        global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
         $query = "UPDATE `Libros_KeynersTeam` SET `título`= :título, `autor`=:autor, `editorial`= :editorial, `descripción`=:descripción, `precio`= :precio, `estado`=:estado, where `idLibro`=:idLibro";
 
-        $stm = $db->prepare($query);
+        $stm = $conn->prepare($query);
         $stm->bindParam(":idLibro", $data->idLibro);            
         $stm->bindParam(":título", $data->título);
         $stm->bindParam(":autor", $data->autor);
@@ -140,12 +140,12 @@
 //idLibro	título	autor	editorial	descripción	precio	estado	idProveedor	Libros_KeynersTeam
 
     function borrarLibro(){
-        global $db;
+        global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
         $query = "DELETE FROM `Libros_KeynersTeam` where `idLibro`=:idLibro";
 
-        $stm = $db->prepare($query);            
+        $stm = $conn->prepare($query);            
         $stm->bindParam(":idLibro", $data->idLibro);
 
         if($stm->execute()){

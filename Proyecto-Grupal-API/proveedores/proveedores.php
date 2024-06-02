@@ -9,7 +9,7 @@
     include_once '../config/database.php';
 
     $database = new DatabasesConexion();
-    $db = $database->obtenerConn();
+    $conn = $database->obtenerConn();
 
 
     $request_method = $_SERVER["REQUEST_METHOD"];
@@ -55,10 +55,10 @@
 
     function obtenerProveedores(){
         
-        global $db;
+        global $conn;
 
             $query = "SELECT `*` FROM `Proveedores_KeynersTeam`";
-            $stm = $db->prepare($query);
+            $stm = $conn->prepare($query);
             $stm->execute();
     
             $resultado = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -70,10 +70,10 @@
 //idProveedor nombreProveedor dirección Proveedores_KeynersTeam
 
     function obtenerProveedor($idProveedor){
-        global $db;
+        global $conn;
 
             $query = "SELECT `*` FROM `Proveedores_KeynersTeam` where  `idProveedor`=?";
-            $stm = $db->prepare($query);            
+            $stm = $conn->prepare($query);            
             $stm->bindParam(1, $idProveedor);
             $stm->execute();
     
@@ -87,11 +87,11 @@
 //idProveedor nombreProveedor dirección Proveedores_KeynersTeam
 
     function insertarProveedor(){
-        global $db;
+        global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
         $query = "INSERT INTO `Proveedores_KeynersTeam` ( `nombreProveedor`, `dirección`) values ( :nombreProveedor, :estado)";
-        $stm = $db->prepare($query);            
+        $stm = $conn->prepare($query);            
         $stm->bindParam(":nombreProveedor", $data->nombreProveedor);
         $stm->bindParam(":dirección", $data->dirección);
 
@@ -109,12 +109,12 @@
 //idProveedor nombreProveedor dirección Proveedores_KeynersTeam
 
     function actualizarProveedor(){
-        global $db;
+        global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
         $query = "UPDATE `Proveedores_KeynersTeam` SET `nombreProveedor`= :nombreProveedor, `dirección`=:dirección where `idProveedor`=:idProveedor";
           
-        $stm = $db->prepare($query);            
+        $stm = $conn->prepare($query);            
         $stm->bindParam(":idProveedor", $data->idProveedor);
         $stm->bindParam(":nombreProveedor", $data->nombreProveedor);
         $stm->bindParam(":dirección", $data->dirección);
@@ -133,12 +133,12 @@
 //idProveedor nombreProveedor dirección Proveedores_KeynersTeam
 
     function borrarProveedor(){
-        global $db;
+        global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
         $query = "DELETE FROM `Proveedores_KeynersTeam` where `idProveedor`=:idProveedor";
           
-        $stm = $db->prepare($query);            
+        $stm = $conn->prepare($query);            
         $stm->bindParam(":idProveedor", $data->idProveedor);
    
         if($stm->execute()){

@@ -9,7 +9,7 @@
     include_once '../config/database.php';
 
     $database = new DatabasesConexion();
-    $db = $database->obtenerConn();
+    $conn = $database->obtenerConn();
 
 
     $request_method = $_SERVER["REQUEST_METHOD"];
@@ -55,10 +55,10 @@
 
     function obtenerFacturas(){
         
-        global $db;
+        global $conn;
 
             $query = "SELECT `*` FROM `Factura_KeynersTeam`";
-            $stm = $db->prepare($query);
+            $stm = $conn->prepare($query);
             $stm->execute();
     
             $resultado = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -68,10 +68,10 @@
     }
 
     function obtenerFactura($idFactura){
-        global $db;
+        global $conn;
 
             $query = "SELECT `*` FROM `Factura_KeynersTeam` where  `idFactura`=?";
-            $stm = $db->prepare($query);            
+            $stm = $conn->prepare($query);            
             $stm->bindParam(1, $idFactura);
             $stm->execute();
     
@@ -85,11 +85,11 @@
 //idFactura	idUsuario	idLibro	nombreUsuario	fecha	título	cantidad	totalPagar	Factura_KeynersTeam
 
     function insertarFactura(){
-        global $db;
+        global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
         $query = "INSERT INTO `Factura_KeynersTeam` ( `nombreUsuario`, `fecha`, `titulo`, `cantidad`, `totalPagar` ) values ( :nombreUsuario, :fecha, :titulo, :cantidad, :totalPagar)";
-        $stm = $db->prepare($query);            
+        $stm = $conn->prepare($query);            
         $stm->bindParam(":nombreUsuario", $data->nombreUsuario);
         $stm->bindParam(":fecha", $data->fecha);
         $stm->bindParam(":titulo", $data->titulo);
@@ -109,12 +109,12 @@
 //idFactura	idUsuario	idLibro	nombreUsuario	fecha	título	cantidad	totalPagar	Factura_KeynersTeam
 
     function actualizarFactura(){
-        global $db;
+        global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
         $query = "UPDATE `Factura_KeynersTeam` SET `nombreUsuario`= :nombreUsuario, `fecha`=:fecha, `título`=:título, `cantidad`=:cantidad, `totalPagar`=:totalPagar where `idFactura`=:idFactura";
           
-        $stm = $db->prepare($query);            
+        $stm = $conn->prepare($query);            
         $stm->bindParam(":idFactura", $data->idFactura);
         $stm->bindParam(":nombreUsuario", $data->nombreUsuario);
         $stm->bindParam(":titulo", $data->titulo);
@@ -135,12 +135,12 @@
 //idFactura	idUsuario	idLibro	nombreUsuario	fecha	título	cantidad	totalPagar	Factura_KeynersTeam
 
     function borrarFactura(){
-        global $db;
+        global $conn;
         $data = json_decode(file_get_contents("php://input"));
         
         $query = "DELETE FROM `Factura_KeynersTeam` where `idFactura`=:idFactura";
           
-        $stm = $db->prepare($query);            
+        $stm = $conn->prepare($query);            
         $stm->bindParam(":idFactura", $data->idFactura);
    
         if($stm->execute()){
