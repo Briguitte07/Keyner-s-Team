@@ -6,23 +6,11 @@ header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-include_once "../config/db.php";
+include_once "../config/database.php";
 
-$database = new Database();
-$conn = $database->getConn();
+$database = new DatabasesConexion();
+$conn = $database->obtenerConn();
 $database->checkConn();
-echo "<br>";
-$variableusuarios = $database->getUsuarios();
-
-if ($variableusuarios){
-    echo "<pre>";
-    print_r($variableusuarios);
-    echo "</pre>";
-}
-else{
-    echo "<pre>Sin registros";
-    echo "</pre>";
-}
 
 $request_method = $_SERVER["REQUEST_METHOD"];
 
@@ -59,19 +47,10 @@ switch ($request_method) {
 
 }
 
-public function checkConn(){
-    if($this->conn){
-        echo "conectado";
-    }
-    else{
-        echo 'Fuera de servicio';
-    }
-}
-
 function obtenerUsuarios(){
-    global $db;
-    $query = "SELECT `*` FROM `Usuario_KeynersTeam`";
-    $stmt = $db->prepare($query);
+    global $conn;
+    $query = "SELECT * FROM `Usuario_KeynersTeam`";
+    $stmt = $conn->prepare($query);
     $stmt->execute();
 
     $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -81,9 +60,9 @@ function obtenerUsuarios(){
 
 
 function obtenerUsuario($id){
-    global $db;
-    $query = "SELECT `*` FROM `Usuario_KeynersTeam` WHERE `idUsuario` = ?";
-    $stmt = $db->prepare($query);
+    global $conn;
+    $query = "SELECT * FROM `Usuario_KeynersTeam` WHERE `idUsuario` = ?";
+    $stmt = $conn->prepare($query);
     $stmt->bindParam(1, $id);
     $stmt->execute();
 
@@ -94,11 +73,11 @@ function obtenerUsuario($id){
 
 
 function crearUsuario(){
-    global $db;
+    global $conn;
     $data = json_decode(file_get_contents("php://input"));
 
     $query = "INSERT INTO `Usuario_KeynersTeam` ( `nombreUsuario`, `correo`, `password`, `rol`, `estado` )  VALUES (:nombreUsuario, :correo, :password, :rol, :estado )";
-    $stmt = $db->prepare($query);
+    $stmt = $conn->prepare($query);
     $stmt->bindParam(":nombreUsuario", $data->nombreUsuario);
     $stmt->bindParam(":correo", $data->correo);
     $stmt->bindParam(":password", $data->password);
@@ -117,11 +96,11 @@ function crearUsuario(){
 }
 
 function actualizarUsuario(){
-    global $db;
+    global $conn;
     $data = json_decode(file_get_contents("php://input"));
 
     $query = "UPDATE `Usuario_KeynersTeam` SET `nombreUsuario`= :nombreUsuario, `correo`= :correo, `password`=:password, `rol`=:rol, `estado`=:estado WHERE `idUsuario`=:idUsuario";
-    $stmt = $db->prepare($query);
+    $stmt = $conn->prepare($query);
     $stmt->bindParam(":nombreUsuario", $data->nombreUsuario);
     $stmt->bindParam(":correo", $data->correo);
     $stmt->bindParam(":password", $data->password);
@@ -141,11 +120,11 @@ function actualizarUsuario(){
 
 
 function borrarUsuarios(){
-    global $db;
+    global $conn;
     $data = json_decode(file_get_contents("php://input"));
 
     $query = "DELETE FROM `Usuario_KeynersTeam` WHERE `idUsuario`=:idUsuario";
-    $stmt = $db->prepare($query);
+    $stmt = $conn->prepare($query);
     $stmt->bindParam(":idUsuario", $data->idUsuarios);
 
 
