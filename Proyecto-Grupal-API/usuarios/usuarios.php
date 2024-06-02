@@ -59,11 +59,11 @@ function obtenerUsuarios(){
 }
 
 
-function obtenerUsuario($id){
+function obtenerUsuario($idUsuario){
     global $conn;
     $query = "SELECT * FROM `Usuario_KeynersTeam` WHERE `idUsuario` = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bindParam(1, $id);
+    $stmt->bindParam(1, $idUsuario);
     $stmt->execute();
 
     $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -84,7 +84,6 @@ function crearUsuario(){
     $stmt->bindParam(":rol", $data->rol);
     $stmt->bindParam(":estado", $data->estado);
 
-
     if($stmt->execute()){
         http_response_code(200);
         echo json_encode(array("mensaje"=> "crear Usuario completo"));
@@ -101,13 +100,13 @@ function actualizarUsuario(){
 
     $query = "UPDATE `Usuario_KeynersTeam` SET `nombreUsuario`= :nombreUsuario, `correo`= :correo, `password`=:password, `rol`=:rol, `estado`=:estado WHERE `idUsuario`=:idUsuario";
     $stmt = $conn->prepare($query);
+
+    $stmt->bindParam(":idUsuario", $data->idUsuario);
     $stmt->bindParam(":nombreUsuario", $data->nombreUsuario);
     $stmt->bindParam(":correo", $data->correo);
     $stmt->bindParam(":password", $data->password);
     $stmt->bindParam(":rol", $data->rol);
     $stmt->bindParam(":estado", $data->estado);
-    $stmt->bindParam(":idUsuario", $data->id);
-
 
     if($stmt->execute()){
         http_response_code(200);
@@ -125,7 +124,7 @@ function borrarUsuarios(){
 
     $query = "DELETE FROM `Usuario_KeynersTeam` WHERE `idUsuario`=:idUsuario";
     $stmt = $conn->prepare($query);
-    $stmt->bindParam(":idUsuario", $data->idUsuarios);
+    $stmt->bindParam(":idUsuario", $data->idUsuario);
 
 
     if($stmt->execute()){
