@@ -98,10 +98,10 @@
    
         if($stm->execute()){
             
-            echo json_encode(array("message" => "Datos ingresados correct", "code" => "success"));
+            echo json_encode(array("message" => "Proveedor registrado correctamente", "code" => "success"));
         }else{
             
-            echo json_encode(array("message" => "Datos ingresados incorrect", "code" => "danger"));
+            echo json_encode(array("message" => "El proveedor no se logró registrar", "code" => "danger"));
         }
 
     }
@@ -122,10 +122,10 @@
    
         if($stm->execute()){
             
-            echo json_encode(array("message" => "Datos actualizados correct", "code" => "success"));
+            echo json_encode(array("message" => "Proveedor modificado correctamente", "code" => "success"));
         }else{
             
-            echo json_encode(array("message" => "Datos actualizados incorrect", "code" => "danger"));
+            echo json_encode(array("message" => "El proveedor no se logró modificar", "code" => "danger"));
         }
 
     }
@@ -143,10 +143,10 @@
    
         if($stm->execute()){
             
-            echo json_encode(array("message" => "Datos eliminados correct", "code" => "success"));
+            echo json_encode(array("message" => "Proveedor eliminado correctamente", "code" => "success"));
         }else{
             
-            echo json_encode(array("message" => "Datos eliminados incorrect", "code" => "danger"));
+            echo json_encode(array("message" => "El proveedor no se logró eliminar", "code" => "danger"));
         }
     }
 

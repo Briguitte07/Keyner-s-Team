@@ -86,10 +86,10 @@ function crearUsuario(){
 
     if($stmt->execute()){
         http_response_code(200);
-        echo json_encode(array("mensaje"=> "crear Usuario completo"));
+        echo json_encode(array("mensaje"=> "Usuario registrado correctamente", "code" => "success"));
     }else{
         http_response_code(500);
-        echo json_encode(array("mensaje"=> "crear Usuario incompleto"));
+        echo json_encode(array("mensaje"=> "El usuario no se logró registrar", "code" => "danger"));
     }
     
 }
@@ -110,10 +110,10 @@ function actualizarUsuario(){
 
     if($stmt->execute()){
         http_response_code(200);
-        echo json_encode(array("mensaje"=> "Actualizar Usuario completo"));
+        echo json_encode(array("mensaje"=> "Usuario modificado correctamente", "code" => "success"));
     }else{
         http_response_code(500);
-        echo json_encode(array("mensaje"=> "Actualizar Usuario incompleto"));
+        echo json_encode(array("mensaje"=> "El usuario no se logró modificar", "code" => "danger"));
     }
 }
 
@@ -129,10 +129,10 @@ function borrarUsuarios(){
 
     if($stmt->execute()){
         http_response_code(200);
-        echo json_encode(array("mensaje"=> "Borrar Usuario completo"));
+        echo json_encode(array("mensaje"=> "Usuario eliminado correctamente"), "code" => "success");
     }else{
         http_response_code(500);
-        echo json_encode(array("mensaje"=> "Borrar Usuario incompleto"));
+        echo json_encode(array("mensaje"=> "El usuario no le logró eliminar", "code" => "danger"));
     }
 }
 

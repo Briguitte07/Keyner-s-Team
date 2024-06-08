@@ -104,10 +104,10 @@
 
         if($stm->execute()){
             
-            echo json_encode(array("message" => "Datos ingresados correct", "code" => "success"));
+            echo json_encode(array("message" => "Libro registrado correctamente", "code" => "success"));
         }else{
             
-            echo json_encode(array("message" => "Datos ingresados incorrect", "code" => "danger"));
+            echo json_encode(array("message" => "El libro no se logró registrar", "code" => "danger"));
         }
 
     }
@@ -131,10 +131,10 @@
         $stm->bindParam(":idProveedor", $data->idProveedor);
         if($stm->execute()){
             
-            echo json_encode(array("message" => "Datos actualizados correct", "code" => "success"));
+            echo json_encode(array("message" => "Libro modificado correctamente", "code" => "success"));
         }else{
             
-            echo json_encode(array("message" => "Datos actualizados incorrect", "code" => "danger"));
+            echo json_encode(array("message" => "El libro no se logró modificar", "code" => "danger"));
         }
 
     }
@@ -152,10 +152,10 @@
 
         if($stm->execute()){
             
-            echo json_encode(array("message" => "Datos eliminados correct", "code" => "success"));
+            echo json_encode(array("message" => "Libro eliminado correctamente", "code" => "success"));
         }else{
             
-            echo json_encode(array("message" => "Datos eliminados incorrect", "code" => "danger"));
+            echo json_encode(array("message" => "El libro no se logró eliminar", "code" => "danger"));
         }
     }
 

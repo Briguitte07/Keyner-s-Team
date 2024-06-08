@@ -102,10 +102,10 @@
    
         if($stm->execute()){
             
-            echo json_encode(array("message" => "Datos ingresados correct", "code" => "success"));
+            echo json_encode(array("message" => "Factura registrada correctamente", "code" => "success"));
         }else{
             
-            echo json_encode(array("message" => "Datos ingresados incorrect", "code" => "danger"));
+            echo json_encode(array("message" => "La factura no se logró registrar", "code" => "danger"));
         }
 
     }
@@ -130,10 +130,10 @@
    
         if($stm->execute()){
             
-            echo json_encode(array("message" => "Datos actualizados correct", "code" => "success"));
+            echo json_encode(array("message" => "Factura modificada correctamente", "code" => "success"));
         }else{
             
-            echo json_encode(array("message" => "Datos actualizados incorrect", "code" => "danger"));
+            echo json_encode(array("message" => "La factura no se logró modificar", "code" => "danger"));
         }
 
     }
@@ -151,13 +151,11 @@
    
         if($stm->execute()){
             
-            echo json_encode(array("message" => "Datos eliminados correct", "code" => "success"));
+            echo json_encode(array("message" => "Factura eliminada correctamente", "code" => "success"));
         }else{
             
-            echo json_encode(array("message" => "Datos eliminados incorrect", "code" => "danger"));
+            echo json_encode(array("message" => "La factura no se logró eliminar", "code" => "danger"));
         }
     }
-
-
 
 ?>
