@@ -129,7 +129,7 @@ function borrarUsuarios(){
 
     if($stmt->execute()){
         http_response_code(200);
-        echo json_encode(array("mensaje"=> "Usuario eliminado correctamente"), "code" => "success");
+        echo json_encode(array("mensaje"=> "Usuario eliminado correctamente", "code" => "success"));
     }else{
         http_response_code(500);
         echo json_encode(array("mensaje"=> "El usuario no le logró eliminar", "code" => "danger"));
