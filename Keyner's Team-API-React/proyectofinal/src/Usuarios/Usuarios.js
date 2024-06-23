@@ -64,22 +64,25 @@ const Usuarios = () => {
                                         <th scope="col">Acciones</th>
                                         <th scope="col">Id</th>
                                         <th scope="col">nombreUsuario</th>
-                                        <th scope="col">Descripcion</th>
-                                        <th scope="col">Tiempo</th>
-                                        <th scope="col">Usuario</th>
+                                        <th scope="col">correo</th>
+                                        <th scope="col">password</th>
+                                        <th scope="col">rol</th>
+                                        <th scope="col">estado</th>
                                         
                                     </tr>
                                 </thead>
                                 <tbody id="datos">
                                     {
-                                        cursos.map( curso => (
-                                                <tr key={curso.id}>
+                                        usuarios.map( usuarios => (
+                                                <tr key={usuarios.id}>
                                                     <td>Botones</td>
-                                                    <td>{curso.id}</td>
-                                                    <td>{curso.nombre}</td>
-                                                    <td>{curso.descripcion}</td>
-                                                    <td>{curso.tiempo}</td>
-                                                    <td>{curso.usuario}</td>
+                                                    <td>{usuarios.id}</td>
+                                                    <td>{usuarios.nombre}</td>
+                                                    <td>{usuarios.correo}</td>
+                                                    <td>{usuarios.password}</td>
+                                                    <td>{usuarios.rol}</td>
+                                                    <td>{usuarios.estado}</td>
+
                                                 </tr>
                                         ))
                                     }
@@ -89,16 +92,18 @@ const Usuarios = () => {
                             </table>
 
                         <Modal isOpen={modalOpen} >
-                            <ModalHeader >Modal Curso</ModalHeader>
+                            <ModalHeader >Modal Usuario</ModalHeader>
                             <ModalBody>
                                 <Label>Nombre</Label>
-                                <Input type="text" id="nombre" value={cursoEditar?.nombre || ''}></Input>
-                                <Label>Descripcion</Label>
-                                <Input type="text" id="descripcion" value={cursoEditar?.descripcion || ''}></Input>
-                                <Label>Tiempo</Label>
-                                <Input type="text" id="tiempo" value={cursoEditar?.tiempo || ''}></Input>
-                                <Label>Usuario</Label>
-                                <Input type="text" id="usuario" value={cursoEditar?.usuario || ''}></Input>                                                                                                                                                             
+                                <Input type="text" id="nombreUsuario" value={UsuarioEditar?.nombre || ''}></Input>
+                                <Label>Correo</Label>
+                                <Input type="text" id="descripcion" value={UsuarioEditar?.correo || ''}></Input>
+                                <Label>Password</Label>
+                                <Input type="text" id="tiempo" value={UsuarioEditar?.password || ''}></Input>
+                                <Label>Rol</Label>
+                                <Input type="text" id="usuario" value={UsuarioEditar?.rol || ''}></Input>  
+                                <Label>Estado</Label>
+                                <Input type="text" id="usuario" value={UsuarioEditar?.estado || ''}></Input>                                                                                                                                                             
                             </ModalBody>
                             <ModalFooter>
                             <Button color='success' onClick={guardar}>
