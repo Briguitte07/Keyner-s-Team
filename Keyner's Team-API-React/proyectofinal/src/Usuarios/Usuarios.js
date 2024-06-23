@@ -21,7 +21,7 @@ const Usuarios = () => {
     //Declarar funciones.
     const fetchUsuarios = () =>{
         //url + listar esto es la url del servicio concatenada
-        fetch( 'https://paginas-web-cr.com/Api/apis/ListaCurso.php' )
+        fetch( 'http://localhost/Proyecto-Grupal-API/usuarios/usuarios.php' ) ///
         .then(respuesta=>respuesta.json())
         .then( (datosrepuesta) => {
             setCursos(datosrepuesta.data);
@@ -34,8 +34,8 @@ const Usuarios = () => {
     };
 
 
-    const toggleEditModal = (curso) =>{
-        setModalOpen(curso);
+    const toggleEditModal = (usuarios) =>{
+        setModalOpen(usuarios);
     };
 
 
